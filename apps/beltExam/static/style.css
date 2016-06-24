@@ -1,0 +1,70 @@
+* {
+	/*outline: 1px dotted purple;*/
+}
+
+div.ct{
+	width: 970px;
+	min-height: 500px;
+	vertical-align: top;
+	margin: 0px auto;
+}
+
+div.body{
+	width: 450px;
+	height: 500px;
+	vertical-align: top;
+	display: inline-block;
+	margin: 10px;
+}
+div.bodyb{
+	width: 450px;
+	min-height: 100px;
+	overflow-y: auto;
+	vertical-align: top;
+	margin: 10px;
+	border: 4px solid purple;
+	border-radius: 5px;
+}
+
+div.bottom{
+	width: 950px;
+	min-height: 100px;
+	overflow-y: auto;
+	vertical-align: top;
+	margin: 10px;
+	border: 4px solid purple;
+	border-radius: 5px;
+}
+
+div.header {
+	width: 970px;
+	height: 50px;
+	margin: 0px auto;
+
+}
+
+a.head {
+	margin: 10px auto;
+	text-align: right;
+	display: inline-block;
+}
+
+label{
+	display: block;
+}
+
+input {
+	display: block;
+}
+
+table {
+	border: 2px solid purple;
+	width: 900px;
+	overflow-y: auto;
+	margin-left: 20px;
+	margin-bottom: 20px;
+}
+
+th {
+	text-align: left;
+}

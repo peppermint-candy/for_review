@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+	<title></title>
+	<title></title>
+</head>
+<body>
+	<div class="ct">
+		<div class="header">
+			<a href="{% url 'logoff' %}">Logout</a>
+		</div>
+		<div class="bodyb">
+			<h3>Welcome {{ request.session.name }}</h3>
+			<h4>{{ ppp.count }} people poked you!</h4>
+			
+
+		</div>
+		<div class="bodyb">
+			{% for person in ppp %}	
+			<h4>{{ person.userpoke.first_name }} poke you {{ person.poked }} times!</h4>
+			{% endfor %}
+		</div>
+		<div class="bottom">
+			<h3>People you may want to poke:</h3>
+			<table>
+				<thead>
+
+					<th>Name</th>
+					<th>Alias</th>
+					<th>Email Address</th>
+					<th>Poked History</th>
+					<th>Action</th>
+				</thead>
+				<tbody>
+				
+				{% for poke in pokes %}
+
+					<tr>
+
+						<td>{{ poke.userpoked.first_name }} </td>
+						<td>{{ poke.userpoked.alias }}</td>
+						<td>{{ poke.userpoked.email }}</td>
+						<td>{{ poke.poked }}</td>
+						<td>
+	
+						<form action="/clickpoke/{{ poke.userpoked.id }}" method="post">
+						 {% csrf_token %}
+						 <input type="submit" value ="Poke!"></form></td>
+
+				{% endfor %}
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<form action="/check" method="post">
+						 {% csrf_token %}
+						 <input type="submit" value ="check"></form>
+		</div>
+	</div>
+
+</body>
+</html>
