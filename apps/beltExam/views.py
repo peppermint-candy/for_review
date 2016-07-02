@@ -6,10 +6,6 @@ from django.contrib import messages
 from .models import User, Poke
 from django.core.urlresolvers import reverse
 
-#########################################
-# ALL USER PASSWORD IS 'PASSWORDD'
-# EMAIL SAMPLE - ONE@ONE.COM
-#########################################
 
 def index(request):
 	return render(request, "index.html")
@@ -19,6 +15,7 @@ def register(request):
 		user_tuple2 = User.userManager.register(request.POST['first_name'], request.POST['alias'], request.POST['email'], request.POST['pw'], request.POST['c_pw'])
 		if user_tuple2[0]:
 			print User.userManager.all()
+			Poke.objects.create(userpoked = user_tuple2[1].id, poked = 0)
 			request.session['id'] = user_tuple2[1].id
 			request.session['name'] = user_tuple2[1].first_name
 			return redirect('/pokes')
@@ -55,21 +52,26 @@ def logoff(request):
 def clickpoke(request, id):
 	if request.method == "POST":
 		try: 
-			p1 = User.userManager.filter( id = request.session['id'])
-			p2 = User.userManager.filter( id = id)
+			p1 = User.userManager.get( p1 = request.session['id'])
+			p2 = User.userManager.get( p2 = id)
 			print "1" * 50
 			if p1 and p2:
 				print "2" * 50
-				Poke.objects.filter(userpoke = p1[0], userpoked=p2[0])[0].update( poked = F('poked') + 1 )
+				Poke.objects.get( userpoke = p1[0], userpoked=p2[0])[0].update( poked = F('poked') + 1 )
 				print "5" * 60
+				p1.save()
+				p2.save()
+				print " Poke update"
 				return redirect('/pokes')
 		except:
 			print "3" * 50
-			Poke.objects.create(userpoke = User.userManager.filter(request.session['id']), userpoked = User.userManager.filter( id = id), poked = 1 )
+			Poke.objects.create( userpoke = request.session['id'], userpoked = User.userManager.get( id = id))
+			print "Create new poke"
 			return redirect('/pokes')
 	else:
 		return HttpResponse('error')
 
 def check(request):
-	print request.session['id']
+	user = User.userManager.get(id = request.session['id'])
+	print user
 	return redirect('/pokes')

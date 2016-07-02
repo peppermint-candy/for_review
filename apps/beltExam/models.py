@@ -62,6 +62,6 @@ class User(models.Model):
 class Poke(models.Model):
 	userpoke = models.ForeignKey(User, related_name = "p1")
 	userpoked = models.ForeignKey(User, related_name ="p2")
-	poked = models.IntegerField()
+	poked = models.IntegerField(default = "1")
 	created_at = models.DateTimeField(auto_now_add = True)
 	updated_at = models.DateTimeField(auto_now=True)

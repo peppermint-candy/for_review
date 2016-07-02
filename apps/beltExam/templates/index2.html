@@ -35,50 +35,16 @@
 					<th>Action</th>
 				</thead>
 				<tbody>
-				{% for poke in pokes %}
-					<tr>
-						<td>{{ poke.userpoke.id }}</td>
-						<td>{{ poke.userpoked.id }}</td>
-						<td>{{ poke.userpoked.first_name }} </td>
-						<td>{{ poke.userpoked.alias }}</td>
-						<td>{{ poke.userpoked.email }}</td>
-						<td>{{ poke.poked }}</td>
-						<td>{{ poke.user.first_name }}</td>
-	
-						<form action="/clickpoke/{{ poke.userpoked.id }}" method="post">
-						 {% csrf_token %}
-						 <input type="submit" value ="Poke!"></form></td>
-
-				{% endfor %}
-					</tr>
-				</tbody>
-			</table>
-
-			<table>
-				<thead>
-					<th>User ID</th>
-					<th>Name</th>
-					<th>Alias</th>
-					<th>Email Address</th>
-					<th>Poked History</th>
-					<th>Action</th>
-				</thead>
-				<tbody>
 					{% for user in users %}
 					<tr>
 						<td>{{user.id}}</td>
 						<td>{{user.first_name}}</td>
 						<td> {{user.alias}} </td>
 						<td> {{user.email}} </td>
-					{% for poke in pokes %}
-						{% if user.id == poke.userpoked.id %}
-							<td>{{ poke.poked }}</td>
-						{% else %}
-							<td></td>				
-							{{pass}}
-					{%endif%}
-					{% endfor %}
-						<td>Action HEre!</td>
+						<td> {{ user }}</td>			
+						<td><form action="/clickpoke/{{ poke.userpoked.id }}" method="post">
+						 {% csrf_token %}
+						 <input type="submit" value ="Poke!"></form></td>
 					</tr>
 					{% endfor %}
 				</tbody>	
